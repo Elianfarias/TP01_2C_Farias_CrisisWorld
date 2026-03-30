@@ -7,12 +7,15 @@ public class PlayerSettingsSO : ScriptableObject
     [Header("Movimiento")]
     [SerializeField] private float force = 10f;
     [SerializeField] private float verticalForce = 8f;
-    [Header("Rotación")]
+    [Header("Rotacion")]
     [SerializeField] private float rotationSpeedX = 80f;
     [SerializeField] private float rotationSpeedY = 60f;
     [SerializeField] private float maxPitchAngle = 60f;
     [SerializeField] private float maxHorizontalSpeed = 10f;
     [SerializeField] private float maxVerticalSpeed = 5f;
+    [Header("Capas colisionable")]
+    [SerializeField] private LayerMask layerCollision;
+
 
     public int Damage { get { return damage; } }
     public float Force { get { return force; } }
@@ -22,5 +25,5 @@ public class PlayerSettingsSO : ScriptableObject
     public float MaxPitchAngle { get { return maxPitchAngle; } }
     public float MaxHorizontalSpeed { get { return maxHorizontalSpeed; } }
     public float MaxVerticalSpeed { get { return maxVerticalSpeed; } }
-
+    public LayerMask LayerCollision { get { return layerCollision; } }
 }

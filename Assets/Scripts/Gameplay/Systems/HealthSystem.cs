@@ -5,23 +5,23 @@ using UnityEngine;
 public class HealthSystem : MonoBehaviour
 {
     private static readonly int State = Animator.StringToHash("State");
-    public event Action<int, int, bool> OnLifeUpdated;
-    public event Action<int, int, bool> OnHealing;
+    public event Action<float, float> OnLifeUpdated;
+    public event Action<float, float> OnHealing;
     public event Action OnDie;
 
-    [SerializeField] private int maxLife = 100;
+    [SerializeField] private float maxLife = 100f;
     [SerializeField] private Rigidbody rb;
 
-    private int life = 100;
+    private float life = 100f;
     private bool isTakingDamage;
 
     private void Start()
     {
         life = maxLife;
-        OnLifeUpdated?.Invoke(life, maxLife, false);
+        OnLifeUpdated?.Invoke(life, maxLife);
     }
 
-    public void DoDamage(int damage, bool takeDmgMyself = false)
+    public void DoDamage(float damage)
     {
         if (damage < 0 || isTakingDamage)
             return;
@@ -32,14 +32,13 @@ public class HealthSystem : MonoBehaviour
             StartCoroutine(nameof(Die));
         else
         {
-            if (!takeDmgMyself)
-                StartCoroutine(nameof(TakeDamage));
+            StartCoroutine(nameof(TakeDamage));
 
-            OnLifeUpdated?.Invoke(life, maxLife, takeDmgMyself);
+            OnLifeUpdated?.Invoke(life, maxLife);
         }
     }
 
-    public void Heal(int plus)
+    public void Heal(float plus)
     {
         if (plus < 0)
             return;
@@ -49,7 +48,7 @@ public class HealthSystem : MonoBehaviour
         if (life > maxLife)
             life = maxLife;
 
-        OnHealing?.Invoke(life, maxLife, false);
+        OnHealing?.Invoke(life, maxLife);
     }
 
     private IEnumerator TakeDamage()
@@ -57,7 +56,7 @@ public class HealthSystem : MonoBehaviour
         isTakingDamage = true;
 
         yield return new WaitForSeconds(0.3f);
-        
+
         isTakingDamage = false;
     }
 
@@ -65,7 +64,7 @@ public class HealthSystem : MonoBehaviour
     {
 
         yield return new WaitForSeconds(0.5f);
-        
+
         life = 0;
         OnDie?.Invoke();
     }

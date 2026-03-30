@@ -497,7 +497,7 @@
                 {
                     "name": "negative",
                     "id": "eaee3f50-6d83-4cb4-85c6-466fabf1b3b0",
-                    "path": "<Keyboard>/leftShift",
+                    "path": "<Keyboard>/leftCtrl",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",

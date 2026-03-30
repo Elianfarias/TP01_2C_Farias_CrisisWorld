@@ -4,14 +4,15 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Rigidbody))]
 public class DroneMovement : MonoBehaviour
 {
+    [Header("Data")]
     [SerializeField] private PlayerSettingsSO data;
-
     [Header("Camera")]
     [SerializeField] private Camera playerCamera;
-
+    
 
     // Referencias
     private Rigidbody rb;
+    private HealthSystem healthSystem;
 
     private Vector2 moveInput;
     private Vector2 lookInput;
@@ -20,6 +21,7 @@ public class DroneMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        healthSystem = GetComponent<HealthSystem>();
         playerCamera = Camera.main;
     }
 
@@ -55,6 +57,15 @@ public class DroneMovement : MonoBehaviour
         ApplyMovement();
         ApplyRotation();
         ClampVelocity();
+    }
+
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if((data.LayerCollision.value & 1 << other.gameObject.layer) != 0)
+        {
+            healthSystem.DoDamage(other.relativeVelocity.magnitude * 2);
+        }
     }
 
     private void ApplyMovement()
