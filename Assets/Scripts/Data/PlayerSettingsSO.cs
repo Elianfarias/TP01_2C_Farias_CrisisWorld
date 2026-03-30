@@ -7,12 +7,12 @@ public class PlayerSettingsSO : ScriptableObject
     [Header("Movimiento")]
     [SerializeField] private float force = 10f;
     [SerializeField] private float verticalForce = 8f;
-    [Header("Rotacion")]
-    [SerializeField] private float rotationSpeedX = 80f;
-    [SerializeField] private float rotationSpeedY = 60f;
-    [SerializeField] private float maxPitchAngle = 60f;
     [SerializeField] private float maxHorizontalSpeed = 10f;
     [SerializeField] private float maxVerticalSpeed = 5f;
+    [Header("Rotacion")]
+    [SerializeField] private float rotationSpeedX = 10f;
+    [SerializeField] private float rotationSpeedY = 2f;
+    [SerializeField] private float maxPitchAngle = 60f;
     [Header("Capas colisionable")]
     [SerializeField] private LayerMask layerCollision;
 

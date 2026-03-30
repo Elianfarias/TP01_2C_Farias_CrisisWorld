@@ -6,9 +6,6 @@ public class DroneMovement : MonoBehaviour
 {
     [Header("Data")]
     [SerializeField] private PlayerSettingsSO data;
-    [Header("Camera")]
-    [SerializeField] private Camera playerCamera;
-    
 
     // Referencias
     private Rigidbody rb;
@@ -22,7 +19,6 @@ public class DroneMovement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         healthSystem = GetComponent<HealthSystem>();
-        playerCamera = Camera.main;
     }
 
     private void OnEnable()

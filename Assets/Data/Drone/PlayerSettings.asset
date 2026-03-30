@@ -15,11 +15,11 @@ MonoBehaviour:
   damage: 10
   force: 10
   verticalForce: 8
-  rotationSpeedX: 10
-  rotationSpeedY: 10
-  maxPitchAngle: 60
   maxHorizontalSpeed: 15
   maxVerticalSpeed: 20
+  rotationSpeedX: 10
+  rotationSpeedY: 2
+  maxPitchAngle: 80
   layerCollision:
     serializedVersion: 2
     m_Bits: 2048

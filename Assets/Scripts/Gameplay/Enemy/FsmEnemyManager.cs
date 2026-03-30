@@ -13,6 +13,7 @@ public class FsmEnemyManager : MonoBehaviour
 
     private void Awake()
     {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         NavMeshAgent _agent = GetComponent<NavMeshAgent>();
         Animator animator = GetComponent<Animator>();
 
@@ -20,7 +21,7 @@ public class FsmEnemyManager : MonoBehaviour
         stateBases.Add(new StateHiting());
 
         foreach (var state in stateBases)
-            state.Initialize(this, animator, enemySettingsSO, _agent);
+            state.Initialize(this, animator, enemySettingsSO, _agent, player);
 
         currentState = FindState(StateType.Running);
     }
@@ -30,7 +31,12 @@ public class FsmEnemyManager : MonoBehaviour
         currentState.OnUpdate();
     }
 
-    private void SwitchState(StateBase state)
+    private void OnAnimatorIK(int layerIndex)
+    {
+        currentState.OnAnimatorIK(layerIndex);
+    }
+
+    public void SwitchState(StateBase state)
     {
         if (currentState == state) return;
 
@@ -39,7 +45,7 @@ public class FsmEnemyManager : MonoBehaviour
         currentState.OnEnter();
     }
 
-    private StateBase FindState(StateType stateType)
+    public StateBase FindState(StateType stateType)
     {
         foreach (var state in stateBases)
         {
