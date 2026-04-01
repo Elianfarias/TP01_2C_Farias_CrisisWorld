@@ -376,6 +376,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6197e8cc8cd1100458b7c5964bed804d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7375057867188267846}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6197e8cc8cd1100458b7c5964bed804d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6950627278680071125}
   m_SourcePrefab: {fileID: 100100000, guid: 6197e8cc8cd1100458b7c5964bed804d, type: 3}
 --- !u!4 &4796554901194016587 stripped
 Transform:
@@ -473,3 +476,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FsmEnemyManager
   enemySettingsSO: {fileID: 11400000, guid: 477210bd6995ea542b4fcf206bc70a56, type: 2}
   isCivil: 0
+--- !u!114 &6950627278680071125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5321875870735162865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 448e14342fca66044bb1453cba305b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
+  maxLife: 100
+  rb: {fileID: 5790899931118421654}

@@ -3,16 +3,17 @@
 public class ProjectileController : MonoBehaviour
 {
     [Header("Config")]
-    public float speed = 100f;
-    public float lifetime = 5f;
+    [SerializeField] private float speed = 100f;
+    [SerializeField] private float lifetime = 5f;
+    [SerializeField] private PlayerSettingsSO data;
 
     [Header("VFX")]
-    public GameObject rocketExplosion;
-    public ParticleSystem disableOnHit;
+    [SerializeField] private GameObject rocketExplosion;
+    [SerializeField] private ParticleSystem disableOnHit;
 
     [Header("References")]
-    public MeshRenderer projectileMesh;
-    public AudioSource inFlightAudioSource;
+    [SerializeField] private MeshRenderer projectileMesh;
+    [SerializeField] private AudioSource inFlightAudioSource;
 
     private bool targetHit;
     private float spawnTime;
@@ -54,7 +55,14 @@ public class ProjectileController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        HealthSystem healthSystem = null;
         if (!enabled || targetHit) return;
+
+        if (collision.collider.TryGetComponent<HealthSystem>(out healthSystem))
+        {
+            if(healthSystem != null)
+                healthSystem.DoDamage(data.Damage);
+        }
 
         targetHit = true;
         Explode();

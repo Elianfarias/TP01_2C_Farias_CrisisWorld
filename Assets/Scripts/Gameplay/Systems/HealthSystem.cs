@@ -62,10 +62,11 @@ public class HealthSystem : MonoBehaviour
 
     private IEnumerator Die()
     {
+        life = 0;
+        OnDie?.Invoke();
 
         yield return new WaitForSeconds(0.5f);
 
-        life = 0;
-        OnDie?.Invoke();
+        gameObject.SetActive(false);
     }
 }

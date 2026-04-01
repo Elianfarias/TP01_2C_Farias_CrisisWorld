@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8d14f101901a243ad3d0d9e101fada, type: 3}
   m_Name: PlayerSettings
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSettingsSO
-  damage: 10
+  damage: 1000
   force: 15
   verticalForce: 8
   maxHorizontalSpeed: 25
@@ -20,7 +20,7 @@ MonoBehaviour:
   rotationSpeedX: 10
   rotationSpeedY: 2
   maxPitchAngle: 80
-  tiltSpeed: 15
+  tiltSpeed: 2
   tiltAngle: 40
   layerCollision:
     serializedVersion: 2

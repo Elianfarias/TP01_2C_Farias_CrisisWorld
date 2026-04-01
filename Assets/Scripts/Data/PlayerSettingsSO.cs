@@ -5,7 +5,7 @@ public class PlayerSettingsSO : ScriptableObject
 {
     [SerializeField] private int damage = 10;
     [Header("Movement")]
-    [SerializeField]  private float force = 10f;
+    [SerializeField] private float force = 10f;
     [SerializeField] private float verticalForce = 8f;
     [SerializeField] private float maxHorizontalSpeed = 10f;
     [SerializeField] private float maxVerticalSpeed = 5f;
@@ -17,6 +17,7 @@ public class PlayerSettingsSO : ScriptableObject
     [SerializeField] private float tiltAngle = 20f;
     [Header("Layer Collision")]
     [SerializeField] private LayerMask layerCollision;
+    [SerializeField] private float multiplyDamageCollision = 2f;
     [Header("Attack")]
     [SerializeField] private float cdAttack = 2f;
 
@@ -32,4 +33,5 @@ public class PlayerSettingsSO : ScriptableObject
     public float TiltSpeed { get { return tiltSpeed; } }
     public float TiltAngle { get { return tiltAngle; } }
     public float CdAttack { get { return cdAttack; } }
+    public float MultiplyDamageCollision { get { return multiplyDamageCollision; } }
 }

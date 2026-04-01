@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.LowLevel;
 
 [RequireComponent(typeof(Rigidbody))]
 public class DroneMovement : MonoBehaviour
@@ -7,6 +8,8 @@ public class DroneMovement : MonoBehaviour
     [Header("Data")]
     [SerializeField] private PlayerSettingsSO data;
     [SerializeField] private Transform droneVisual;
+    [SerializeField] private GameObject cameraThirdPerson;
+    [SerializeField] private GameObject cameraFirstPerson;
 
 
     private Rigidbody rb;
@@ -14,6 +17,7 @@ public class DroneMovement : MonoBehaviour
     private Vector2 moveInput;
     private Vector2 lookInput;
     private float verticalInput;
+    private bool isThirdPerson = true;
 
     private void Awake()
     {
@@ -33,9 +37,6 @@ public class DroneMovement : MonoBehaviour
         Cursor.visible = true;
     }
 
-    private void OnMove(InputValue value) => moveInput = value.Get<Vector2>();
-    private void OnLook(InputValue value) => lookInput = value.Get<Vector2>();
-    private void OnUpDown(InputValue value) => verticalInput = value.Get<float>();
 
     private void FixedUpdate()
     {
@@ -47,7 +48,30 @@ public class DroneMovement : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        healthSystem.DoDamage(other.relativeVelocity.magnitude * 2);
+        // * 2 a scriptable
+        healthSystem.DoDamage(other.relativeVelocity.magnitude * data.MultiplyDamageCollision);
+    }
+
+    private void OnMove(InputValue value)
+    {
+        moveInput = value.Get<Vector2>();
+    }
+    private void OnLook(InputValue value)
+    {
+        lookInput = value.Get<Vector2>();
+    }
+    private void OnUpDown(InputValue value)
+    {
+        verticalInput = value.Get<float>();
+    }
+    private void OnSwitchCamera(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            isThirdPerson = !isThirdPerson;
+            cameraFirstPerson.SetActive(!isThirdPerson);
+            cameraThirdPerson.SetActive(isThirdPerson);
+        }
     }
 
     private void ApplyMovement()
@@ -77,7 +101,7 @@ public class DroneMovement : MonoBehaviour
 
     private void ApplyVisualTilt()
     {
-        float targetPitch = moveInput.y <= 0 ? (moveInput.y * data.TiltAngle) : (moveInput.y * data.TiltAngle * 0.5f);
+        float targetPitch = moveInput.y <= 0 ? (moveInput.y * data.TiltAngle * 0.1f) : (moveInput.y * data.TiltAngle);
         float targetRoll = -moveInput.x * data.TiltAngle;
 
         Quaternion playerRotation = Quaternion.Euler(targetPitch, 0f, targetRoll);
