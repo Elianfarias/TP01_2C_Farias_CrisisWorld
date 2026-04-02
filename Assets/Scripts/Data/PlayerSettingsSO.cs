@@ -20,6 +20,10 @@ public class PlayerSettingsSO : ScriptableObject
     [SerializeField] private float multiplyDamageCollision = 2f;
     [Header("Attack")]
     [SerializeField] private float cdAttack = 2f;
+    [Header("Audio")]
+    public float volumeMusic;
+    public float volumeSFX;
+    public float volumeUI;
 
     public int Damage { get { return damage; } }
     public float Force { get { return force; } }
