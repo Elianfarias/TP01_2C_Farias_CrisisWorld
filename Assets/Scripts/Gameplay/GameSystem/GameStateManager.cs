@@ -6,16 +6,15 @@ public enum GameState
     PLAYING,
     PAUSED,
     GAME_OVER,
-    TUTORIAL
+    TUTORIAL,
+    WIN
 }
 
 public class GameStateManager : MonoBehaviour
 {
-    [SerializeField] private KeyCode keyCodeInmortalMode = KeyCode.M;
     [SerializeField] private AudioClip clipGameOver;
     public static GameStateManager Instance { get; private set; }
     public GameState CurrentGameState { get; private set; } = GameState.PLAYING;
-    public bool inmortalMode;
 
     private void Awake()
     {
@@ -26,12 +25,6 @@ public class GameStateManager : MonoBehaviour
     private void Start()
     {
         SetGameState(CurrentGameState);
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(keyCodeInmortalMode))
-            inmortalMode = !inmortalMode;
     }
 
     public void SetGameState(GameState newState)
@@ -48,8 +41,15 @@ public class GameStateManager : MonoBehaviour
             case GameState.PAUSED:
                 break;
             case GameState.GAME_OVER:
+                Cursor.lockState = CursorLockMode.None;
                 AudioController.Instance.StopBackgroundMusic();
                 HUDManager.Instance.ShowPanelPlayerLose();
+                Time.timeScale = 0;
+                break;
+            case GameState.WIN:
+                Cursor.lockState = CursorLockMode.None;
+                AudioController.Instance.StopBackgroundMusic();
+                HUDManager.Instance.ShowPanelPlayerWin();
                 Time.timeScale = 0;
                 break;
         }

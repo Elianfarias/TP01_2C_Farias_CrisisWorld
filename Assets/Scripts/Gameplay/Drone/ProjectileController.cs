@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Gameplay.Systems;
+﻿using Assets.Scripts.Gameplay.GameSystem;
+using Assets.Scripts.Gameplay.GameSystem.Object_Pool;
+using Assets.Scripts.Gameplay.Systems;
 using UnityEngine;
 
 public class ProjectileController : MonoBehaviour, IPoolable
@@ -6,6 +8,7 @@ public class ProjectileController : MonoBehaviour, IPoolable
     [Header("Config")]
     [SerializeField] private float speed = 100f;
     [SerializeField] private float lifetime = 5f;
+    [SerializeField] private PoolType poolType;
 
     [Header("VFX")]
     [SerializeField] private GameObject rocketExplosion;
@@ -20,8 +23,7 @@ public class ProjectileController : MonoBehaviour, IPoolable
     private bool targetHit;
     private Vector3 origin;
     private Vector3 initialVelocity;
-    private Coroutine returnCoroutine;
-
+    private bool useGravity = true;
     public void OnGetFromPool()
     {
         targetHit = false;
@@ -37,11 +39,6 @@ public class ProjectileController : MonoBehaviour, IPoolable
 
     public void OnReturnToPool()
     {
-        if (returnCoroutine != null)
-        {
-            StopCoroutine(returnCoroutine);
-            returnCoroutine = null;
-        }
     }
 
     private void Update()
@@ -50,8 +47,7 @@ public class ProjectileController : MonoBehaviour, IPoolable
 
         elapsedTime += Time.deltaTime;
 
-        transform.position = CalculatePosition(elapsedTime);
-        transform.rotation = CalculateRotation(elapsedTime);
+        transform.SetPositionAndRotation(CalculatePosition(elapsedTime), CalculateRotation(elapsedTime));
 
         if (elapsedTime >= lifetime)
             ReturnToPool();
@@ -59,9 +55,10 @@ public class ProjectileController : MonoBehaviour, IPoolable
 
     private Vector3 CalculatePosition(float t)
     {
-        return origin
-            + initialVelocity * t
-            + (t * t) * 0.5f * Physics.gravity;
+        if (useGravity)
+            return origin + initialVelocity * t + (t * t) * 0.5f * Physics.gravity;
+
+        return origin + initialVelocity * t;
     }
 
     private Quaternion CalculateRotation(float t)
@@ -81,16 +78,16 @@ public class ProjectileController : MonoBehaviour, IPoolable
 
         targetHit = true;
         Explode();
-        returnCoroutine = StartCoroutine(ReturnAfterDelay());
+        ReturnToPool();
     }
 
     private void Explode()
     {
         Instantiate(rocketExplosion, transform.position, rocketExplosion.transform.rotation);
 
-        if(projectileMesh != null)
+        if (projectileMesh != null)
             projectileMesh.enabled = false;
-        
+
         inFlightAudioSource.Stop();
         disableOnHit.Stop();
 
@@ -98,19 +95,24 @@ public class ProjectileController : MonoBehaviour, IPoolable
             col.enabled = false;
     }
 
-    private System.Collections.IEnumerator ReturnAfterDelay()
-    {
-        yield return new WaitForSeconds(2f);
-        ReturnToPool();
-    }
-
     private void ReturnToPool()
     {
-        BulletPool.Instance.Return(this);
+        switch (poolType)
+        {
+            case PoolType.EnemyBullet:
+                EnemyBulletPool.Instance.Return(this);
+                break;
+            case PoolType.PlayerBullet:
+                PlayerBulletPool.Instance.Return(this);
+                break;
+            default:
+                break;
+        }
     }
 
-    public void Launch(Vector3 direction, float damage)
+    public void Launch(Vector3 direction, float damage, bool useGravity = true)
     {
+        this.useGravity = useGravity;
         this.damage = damage;
         origin = transform.position;
         initialVelocity = direction * speed;

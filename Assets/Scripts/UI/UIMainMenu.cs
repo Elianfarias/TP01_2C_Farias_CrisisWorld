@@ -36,8 +36,7 @@ public class UIMainMenu : MonoBehaviour
     private void Update()
     {
         if ((Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
-            && SceneManager.GetActiveScene().name == "Level1"
-            && !HUDManager.Instance.panelPlayerLose.activeSelf)
+            && GameStateManager.Instance.CurrentGameState == GameState.PLAYING)
         {
             if (!panelMainMenu.activeSelf && isPause)
                 ToggleUIMainMenu();
@@ -64,9 +63,17 @@ public class UIMainMenu : MonoBehaviour
             isPause = !isPause;
 
             if (isPause)
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 Time.timeScale = 0f;
+            }
             else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
                 Time.timeScale = 1f;
+            }
 
             ToggleUIMainMenu();
         }
@@ -81,8 +88,8 @@ public class UIMainMenu : MonoBehaviour
     {
         if (panelCredits != null && panelCredits.activeSelf)
             panelCredits.SetActive(false);
-        if (panelSettings.activeSelf)
-            panelCredits.SetActive(false);
+        if (panelSettings != null && panelSettings.activeSelf)
+            panelSettings.SetActive(false);
 
         panelMainMenu.SetActive(!panelMainMenu.activeSelf);
     }

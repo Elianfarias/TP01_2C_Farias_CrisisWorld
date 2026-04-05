@@ -260,3 +260,4 @@ MonoBehaviour:
   healthSystem: {fileID: 3294449850367221034}
   capsuleCollider: {fileID: 66576675882791483}
   firePoint: {fileID: 6258689488331432957}
+  player: {fileID: 0}

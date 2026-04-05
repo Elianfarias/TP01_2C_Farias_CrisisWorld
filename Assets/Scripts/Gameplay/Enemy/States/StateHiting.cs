@@ -7,7 +7,7 @@ public class StateHiting : StateBase
 {
     private bool isAttacking = false;
     private readonly string animationName = "Throw";
-    public override void Initialize(FsmNPCManager fsmManager, Animator animator, EnemySettingsSO enemySettingsSO, NavMeshAgent agent, GameObject player, bool isCivil, HealthSystem healthSystem, CapsuleCollider capsuleCollider, Transform firePoint)
+    public override void Initialize(FsmNPCManager fsmManager, Animator animator, EnemySettingsSO enemySettingsSO, NavMeshAgent agent, Transform player, bool isCivil, HealthSystem healthSystem, CapsuleCollider capsuleCollider, Transform firePoint)
     {
         base.Initialize(fsmManager, animator, enemySettingsSO, agent, player, isCivil, healthSystem, capsuleCollider, firePoint);
 
@@ -58,7 +58,7 @@ public class StateHiting : StateBase
 
     private Vector3 GetDirectionToPlayer()
     {
-        Vector3 direction = (player.transform.position - fsmManager.transform.position).normalized;
+        Vector3 direction = (player.position - firePoint.transform.position).normalized;
         return direction;
     }
 
@@ -66,18 +66,19 @@ public class StateHiting : StateBase
     {
         direction.y = 0;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        fsmManager.transform.rotation = Quaternion.RotateTowards(
-            fsmManager.transform.rotation,
-            targetRotation,
-            agent.angularSpeed * Time.deltaTime
-        );
+        firePoint.rotation = Quaternion.RotateTowards(
+            firePoint.rotation,
+             targetRotation,
+             agent.angularSpeed * Time.deltaTime
+         );
     }
 
     private IEnumerator AttackRoutine(Vector3 direction)
     {
-        isAttacking = true;
         animator.Play(animationName, 0, 0f);
-        IPoolable poolable = FireballPool.Instance.Get();
+        isAttacking = true;
+        direction += new Vector3(0, 0.1f, 0);
+        IPoolable poolable = EnemyBulletPool.Instance.Get();
         MonoBehaviour mb = poolable as MonoBehaviour;
         mb.transform.SetPositionAndRotation(firePoint.position, firePoint.rotation);
         mb.GetComponent<ProjectileController>().Launch(direction, enemySettingsSO.Damage);

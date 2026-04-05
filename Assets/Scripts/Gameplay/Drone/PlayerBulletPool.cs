@@ -3,9 +3,9 @@ using Assets.Scripts.Gameplay.Systems;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class BulletPool : PoolBase
+public class PlayerBulletPool : PoolBase
 {
-    public static BulletPool Instance { get; private set; }
+    public static PlayerBulletPool Instance { get; private set; }
 
     [SerializeField] private GameObject bulletPrefab;
 

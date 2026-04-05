@@ -11,7 +11,7 @@ public abstract class StateBase
     protected EnemySettingsSO enemySettingsSO;
     protected NavMeshAgent agent;
     protected HealthSystem healthSystem;
-    protected GameObject player;
+    protected Transform player;
     protected bool isCivil;
     protected CapsuleCollider capsuleCollider;
     protected Transform firePoint;
@@ -20,7 +20,7 @@ public abstract class StateBase
         Animator animator, 
         EnemySettingsSO enemySettingsSO, 
         NavMeshAgent agent,
-        GameObject player,
+        Transform player,
         bool isCivil,
         HealthSystem healthSystem,
         CapsuleCollider capsuleCollider,

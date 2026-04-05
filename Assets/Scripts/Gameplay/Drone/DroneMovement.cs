@@ -25,18 +25,11 @@ public class DroneMovement : MonoBehaviour
         healthSystem = GetComponent<HealthSystem>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
-    private void OnDisable()
-    {
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-
 
     private void FixedUpdate()
     {

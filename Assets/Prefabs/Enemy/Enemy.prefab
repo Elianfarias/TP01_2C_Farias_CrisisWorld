@@ -689,6 +689,7 @@ MonoBehaviour:
   healthSystem: {fileID: 7674918689174312612}
   capsuleCollider: {fileID: 6446292710895895885}
   firePoint: {fileID: 5974923147906382452}
+  player: {fileID: 0}
 --- !u!4 &741575283919777957 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 0c5ae6286b7c47b4dbd4b43c4bc93f2b, type: 3}

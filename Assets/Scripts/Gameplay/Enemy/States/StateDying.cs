@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class StateDying : StateBase
 {
-    public override void Initialize(FsmNPCManager fsmManager, Animator animator, EnemySettingsSO enemySettingsSO, NavMeshAgent agent, GameObject player, bool isCivil, HealthSystem healthSystem, CapsuleCollider capsuleCollider, Transform firePoint)
+    public override void Initialize(FsmNPCManager fsmManager, Animator animator, EnemySettingsSO enemySettingsSO, NavMeshAgent agent, Transform player, bool isCivil, HealthSystem healthSystem, CapsuleCollider capsuleCollider, Transform firePoint)
     {
         base.Initialize(fsmManager, animator, enemySettingsSO, agent, player, isCivil, healthSystem, capsuleCollider, firePoint);
 
@@ -15,6 +15,11 @@ public class StateDying : StateBase
         base.OnEnter();
         capsuleCollider.enabled = false;
         agent.isStopped = true;
+
+        if (isCivil)
+            ScoreManager.Instance.LessCivilScore();
+        else
+            ScoreManager.Instance.LessEnemyScore();
     }
 
     public override void OnUpdate()

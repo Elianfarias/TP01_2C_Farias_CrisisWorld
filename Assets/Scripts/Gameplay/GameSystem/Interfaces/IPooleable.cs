@@ -7,6 +7,5 @@ namespace Assets.Scripts.Gameplay.Systems
     public interface IPoolable
     {
         void OnGetFromPool();
-        void OnReturnToPool();
     }
 }

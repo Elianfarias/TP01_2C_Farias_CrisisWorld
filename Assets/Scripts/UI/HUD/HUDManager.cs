@@ -8,10 +8,12 @@ public class HUDManager : MonoBehaviour
     public static HUDManager Instance { get; private set; }
 
     [Header("PlayerLoseHUD")]
-    public GameObject panelPlayerLose;
+    [SerializeField] private GameObject panelPlayerLose;
     [SerializeField] private Button btnReset;
     [SerializeField] private Button btnBackToMenu;
     [Header("PlayerWinHUD")]
+    [SerializeField] private GameObject panelPlayerWin;
+    [SerializeField] private TextMeshProUGUI descriptionWin;
     [SerializeField] private Button btnWinReset;
     [SerializeField] private Button btnWinBackToMenu;
 
@@ -19,12 +21,13 @@ public class HUDManager : MonoBehaviour
     {
         Instance = this;
 
-        if(btnReset != null)
+        if (btnReset != null)
         {
             btnBackToMenu.onClick.AddListener(BackToMenu);
             btnReset.onClick.AddListener(ResetGame);
         }
-        if (btnWinBackToMenu != null) {
+        if (btnWinBackToMenu != null)
+        {
             btnWinBackToMenu.onClick.AddListener(BackToMenu);
             btnWinReset.onClick.AddListener(ResetGame);
         }
@@ -49,6 +52,12 @@ public class HUDManager : MonoBehaviour
         panelPlayerLose.SetActive(true);
     }
 
+    public void ShowPanelPlayerWin()
+    {
+        descriptionWin.text = "You have rescued " + ScoreManager.Instance.civilCount + " civilians";
+        panelPlayerWin.SetActive(true);
+    }
+
     private void BackToMenu()
     {
         Time.timeScale = 1;
@@ -59,6 +68,6 @@ public class HUDManager : MonoBehaviour
     {
         Time.timeScale = 1;
         GameStateManager.Instance.SetGameState(GameState.PLAYING);
-        SceneManager.LoadScene("InGame");
+        SceneManager.LoadScene("Level1");
     }
 }

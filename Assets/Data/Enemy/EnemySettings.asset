@@ -27,4 +27,4 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 0
-  attackCooldown: 30
+  attackCooldown: 1.5

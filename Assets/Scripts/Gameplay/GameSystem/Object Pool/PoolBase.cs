@@ -38,7 +38,6 @@ namespace Assets.Scripts.Gameplay.GameSystem.Object_Pool
             }
 
             (item as MonoBehaviour).gameObject.SetActive(false);
-            item.OnReturnToPool();
             available.Enqueue(item);
         }
     }

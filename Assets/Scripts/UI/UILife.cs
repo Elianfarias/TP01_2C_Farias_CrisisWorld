@@ -31,5 +31,6 @@ public class UILife : MonoBehaviour
     private void HealthSystem_onDie()
     {
         barLife.fillAmount = 0;
+        GameStateManager.Instance.SetGameState(GameState.GAME_OVER);
     }
 }

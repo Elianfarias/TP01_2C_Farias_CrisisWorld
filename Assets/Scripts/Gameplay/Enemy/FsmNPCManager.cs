@@ -28,7 +28,7 @@ public class FsmNPCManager : MonoBehaviour
         stateBases.Add(new StateDying());
 
         foreach (var state in stateBases)
-            state.Initialize(this, animator, enemySettingsSO, _agent, player, isCivil, healthSystem, capsuleCollider, firePoint);
+            state.Initialize(this, animator, enemySettingsSO, _agent, player.transform, isCivil, healthSystem, capsuleCollider, firePoint);
 
         currentState = FindState(StateType.Running);
     }

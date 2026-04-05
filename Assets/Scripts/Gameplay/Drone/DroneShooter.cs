@@ -20,7 +20,7 @@ public class DroneShooter : MonoBehaviour
 
     private void Shoot()
     {
-        IPoolable poolable = BulletPool.Instance.Get();
+        IPoolable poolable = PlayerBulletPool.Instance.Get();
         MonoBehaviour mb = poolable as MonoBehaviour;
         mb.transform.SetPositionAndRotation(firePoint.position, gameObject.transform.rotation);
         mb.GetComponent<ProjectileController>().Launch(firePoint.forward, data.Damage);
