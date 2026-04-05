@@ -66,7 +66,10 @@ public class HealthSystem : MonoBehaviour
         OnDie?.Invoke();
 
         yield return new WaitForSeconds(0.5f);
+    }
 
-        gameObject.SetActive(false);
+    public float GetCurrentLife()
+    {
+        return life;
     }
 }

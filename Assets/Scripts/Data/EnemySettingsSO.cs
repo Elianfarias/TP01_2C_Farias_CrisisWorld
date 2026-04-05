@@ -12,7 +12,7 @@ public class EnemySettingsSO : ScriptableObject
     [SerializeField] private LayerMask obstacleLayer;
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private LayerMask enemyLayer;
-
+    [SerializeField] public float attackCooldown = 1.5f;
     public int Damage { get { return damage; } }
     public float WaitTime { get { return waitTime; } }
     public float ObstacleDetectionRadius { get { return obstacleDetectionRadius; } }
@@ -22,4 +22,5 @@ public class EnemySettingsSO : ScriptableObject
     public LayerMask ObstacleLayer { get { return obstacleLayer; } }
     public LayerMask PlayerLayer { get { return playerLayer; } }
     public LayerMask EnemyLayer { get { return enemyLayer; } }
+    public float AttackCooldown { get { return attackCooldown; } }
 }

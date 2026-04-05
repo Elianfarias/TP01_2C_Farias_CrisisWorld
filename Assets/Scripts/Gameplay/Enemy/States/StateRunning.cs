@@ -5,9 +5,9 @@ public class StateRunning : StateBase
 {
     private float nextWanderTime;
 
-    public override void Initialize(FsmNPCManager fsmManager, Animator animator, EnemySettingsSO enemySettingsSO, NavMeshAgent agent, GameObject player, bool isCivil)
+    public override void Initialize(FsmNPCManager fsmManager, Animator animator, EnemySettingsSO enemySettingsSO, NavMeshAgent agent, GameObject player, bool isCivil, HealthSystem healthSystem, CapsuleCollider capsuleCollider, Transform firePoint)
     {
-        base.Initialize(fsmManager, animator, enemySettingsSO, agent, player, isCivil);
+        base.Initialize(fsmManager, animator, enemySettingsSO, agent, player, isCivil, healthSystem, capsuleCollider, firePoint);
         this.stateType = StateType.Running;
     }
 
@@ -21,6 +21,13 @@ public class StateRunning : StateBase
     public override void OnUpdate()
     {
         if (!agent.isOnNavMesh || !agent.isActiveAndEnabled) return;
+
+        if (healthSystem.GetCurrentLife() <= 0)
+        {
+            StateBase dyingState = fsmManager.FindState(StateType.Dying);
+            fsmManager.SwitchState(dyingState);
+            return;
+        }
 
         if (IsPlayerNearby())
         {

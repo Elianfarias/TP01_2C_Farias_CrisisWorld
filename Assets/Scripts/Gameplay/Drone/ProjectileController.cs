@@ -88,7 +88,9 @@ public class ProjectileController : MonoBehaviour, IPoolable
     {
         Instantiate(rocketExplosion, transform.position, rocketExplosion.transform.rotation);
 
-        projectileMesh.enabled = false;
+        if(projectileMesh != null)
+            projectileMesh.enabled = false;
+        
         inFlightAudioSource.Stop();
         disableOnHit.Stop();
 

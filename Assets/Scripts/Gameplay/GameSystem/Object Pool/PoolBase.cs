@@ -11,7 +11,6 @@ namespace Assets.Scripts.Gameplay.GameSystem.Object_Pool
         [SerializeField] private int defaultCapacity = 5;
         [SerializeField] private int maxSize = 30;
         protected Queue<IPoolable> available = new();
-        private int currentSize = 0;
 
         protected void Initialize()
         {

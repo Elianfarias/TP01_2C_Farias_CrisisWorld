@@ -1,5 +1,6 @@
 using NUnit.Framework;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +11,9 @@ public class FsmNPCManager : MonoBehaviour
     [SerializeField] private bool isCivil;
     [SerializeField] NavMeshAgent _agent;
     [SerializeField] Animator animator;
+    [SerializeField] HealthSystem healthSystem;
+    [SerializeField] CapsuleCollider capsuleCollider;
+    [SerializeField] Transform firePoint;
 
     private readonly IList<StateBase> stateBases = new List<StateBase>();
     private StateBase currentState;
@@ -21,9 +25,10 @@ public class FsmNPCManager : MonoBehaviour
 
         stateBases.Add(new StateRunning());
         stateBases.Add(new StateHiting());
+        stateBases.Add(new StateDying());
 
         foreach (var state in stateBases)
-            state.Initialize(this, animator, enemySettingsSO, _agent, player, isCivil);
+            state.Initialize(this, animator, enemySettingsSO, _agent, player, isCivil, healthSystem, capsuleCollider, firePoint);
 
         currentState = FindState(StateType.Running);
     }
@@ -56,5 +61,10 @@ public class FsmNPCManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public Coroutine StartManagedCoroutine(IEnumerator routine)
+    {
+        return StartCoroutine(routine);
     }
 }

@@ -10,15 +10,21 @@ public abstract class StateBase
     protected Animator animator;
     protected EnemySettingsSO enemySettingsSO;
     protected NavMeshAgent agent;
+    protected HealthSystem healthSystem;
     protected GameObject player;
     protected bool isCivil;
-
+    protected CapsuleCollider capsuleCollider;
+    protected Transform firePoint;
+    
     public virtual void Initialize(FsmNPCManager fsmManager, 
         Animator animator, 
         EnemySettingsSO enemySettingsSO, 
         NavMeshAgent agent,
         GameObject player,
-        bool isCivil
+        bool isCivil,
+        HealthSystem healthSystem,
+        CapsuleCollider capsuleCollider,
+        Transform firePoint
         )
     {
         this.fsmManager = fsmManager;
@@ -27,6 +33,9 @@ public abstract class StateBase
         this.agent = agent;
         this.player = player;
         this.isCivil = isCivil;
+        this.healthSystem = healthSystem;
+        this.capsuleCollider = capsuleCollider;
+        this.firePoint = firePoint;
     }
 
     public virtual void OnEnter()

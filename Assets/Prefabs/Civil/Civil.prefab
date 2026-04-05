@@ -9,9 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6257324169984619134}
-  - component: {fileID: 2101549922998551089}
-  - component: {fileID: 8028917661303517542}
-  - component: {fileID: 9210619261287242749}
   m_Layer: 0
   m_Name: Civil
   m_TagString: Untagged
@@ -35,65 +32,6 @@ Transform:
   - {fileID: 6258689488331432957}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &2101549922998551089
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5454703451424991676}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 80
-  m_CollisionDetection: 0
---- !u!114 &8028917661303517542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5454703451424991676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939ab35849217c348843bc795e6597ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FsmNPCManager
-  enemySettingsSO: {fileID: 11400000, guid: 477210bd6995ea542b4fcf206bc70a56, type: 2}
-  isCivil: 1
-  _agent: {fileID: 1385738713271344076}
-  animator: {fileID: 8407494045817085961}
---- !u!114 &9210619261287242749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5454703451424991676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 939ab35849217c348843bc795e6597ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FsmNPCManager
-  enemySettingsSO: {fileID: 11400000, guid: 477210bd6995ea542b4fcf206bc70a56, type: 2}
-  isCivil: 1
-  _agent: {fileID: 1385738713271344076}
-  animator: {fileID: 8407494045817085961}
 --- !u!1001 &5859725795094299670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -181,6 +119,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e7127fec8cfcbbc47b5b542d24a2c6cd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3294449850367221034}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: e7127fec8cfcbbc47b5b542d24a2c6cd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5890366184287371389}
   m_SourcePrefab: {fileID: 100100000, guid: e7127fec8cfcbbc47b5b542d24a2c6cd, type: 3}
 --- !u!4 &6258689488331432957 stripped
 Transform:
@@ -300,3 +241,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthSystem
   maxLife: 100
   rb: {fileID: 8969544883263215529}
+--- !u!114 &5890366184287371389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6742034058588928327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 939ab35849217c348843bc795e6597ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FsmNPCManager
+  enemySettingsSO: {fileID: 11400000, guid: 477210bd6995ea542b4fcf206bc70a56, type: 2}
+  isCivil: 1
+  _agent: {fileID: 1385738713271344076}
+  animator: {fileID: 8407494045817085961}
+  healthSystem: {fileID: 3294449850367221034}
+  capsuleCollider: {fileID: 66576675882791483}
+  firePoint: {fileID: 6258689488331432957}
