@@ -42,12 +42,14 @@ public class GameStateManager : MonoBehaviour
                 break;
             case GameState.GAME_OVER:
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 AudioController.Instance.StopBackgroundMusic();
                 HUDManager.Instance.ShowPanelPlayerLose();
                 Time.timeScale = 0;
                 break;
             case GameState.WIN:
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 AudioController.Instance.StopBackgroundMusic();
                 HUDManager.Instance.ShowPanelPlayerWin();
                 Time.timeScale = 0;
