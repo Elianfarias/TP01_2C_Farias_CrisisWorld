@@ -20,6 +20,7 @@ public class PlayerSettingsSO : ScriptableObject
     [SerializeField] private float multiplyDamageCollision = 2f;
     [Header("Attack")]
     [SerializeField] private float cdAttack = 2f;
+    [SerializeField] private float cdRope = 5f;
     [Header("Audio")]
     public float volumeMusic;
     public float volumeSFX;
@@ -37,5 +38,6 @@ public class PlayerSettingsSO : ScriptableObject
     public float TiltSpeed { get { return tiltSpeed; } }
     public float TiltAngle { get { return tiltAngle; } }
     public float CdAttack { get { return cdAttack; } }
+    public float CdRope { get { return cdRope; } }
     public float MultiplyDamageCollision { get { return multiplyDamageCollision; } }
 }

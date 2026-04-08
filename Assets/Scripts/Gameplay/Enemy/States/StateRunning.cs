@@ -38,7 +38,9 @@ public class StateRunning : StateBase
 
         bool arrivedAtDestination = !agent.pathPending && agent.remainingDistance <= agent.stoppingDistance;
 
-        if ((IsObstacleNearby() || arrivedAtDestination || (isCivil && IsEnemyNearby())) && Time.time >= nextWanderTime)
+        if (isCivil && IsRopeNearby(out Vector3 ropePosition))
+            MoveToPosition(ropePosition);
+        else if ((IsObstacleNearby() || arrivedAtDestination || (isCivil && IsEnemyNearby())) && Time.time >= nextWanderTime)
         {
             MoveToRandomPosition();
             nextWanderTime = Time.time + enemySettingsSO.WanderCooldown;
@@ -67,11 +69,27 @@ public class StateRunning : StateBase
         return Physics.CheckSphere(fsmManager.transform.position, enemySettingsSO.ObstacleDetectionRadius, enemySettingsSO.EnemyLayer);
     }
 
+    private bool IsRopeNearby(out Vector3 ropePosition)
+    {
+        ropePosition = Vector3.zero;
+        Collider[] hits = Physics.OverlapSphere(fsmManager.transform.position, enemySettingsSO.RopeDetectionRadius, enemySettingsSO.RopeLayer);
+        if (hits.Length == 0) return false;
+
+        ropePosition = hits[0].transform.position;
+        return true;
+    }
+
     private void MoveToRandomPosition()
     {
         Vector3 randomDirection = Random.insideUnitSphere * enemySettingsSO.WanderRadius;
         randomDirection += fsmManager.transform.position;
         if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, enemySettingsSO.WanderRadius, NavMesh.AllAreas))
+            agent.SetDestination(hit.position);
+    }
+
+    private void MoveToPosition(Vector3 target)
+    {
+        if (NavMesh.SamplePosition(target, out NavMeshHit hit, enemySettingsSO.WanderRadius, NavMesh.AllAreas))
             agent.SetDestination(hit.position);
     }
 }

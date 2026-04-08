@@ -9,7 +9,7 @@ public class ScoreManager : MonoBehaviour
     public int civilCount = 4;
     public int enemyMaxCount = 8;
     public int enemyCount = 8;
-
+    public int civilSaved = 0;
 
     public static ScoreManager Instance;
 
@@ -42,6 +42,13 @@ public class ScoreManager : MonoBehaviour
         txtEnemy.text = enemyCount + "/" + enemyMaxCount;
 
         if (enemyCount <= 0)
+            GameStateManager.Instance.SetGameState(GameState.WIN);
+    }
+
+    public void AddCivilSavedScore()
+    {
+        civilSaved++;
+        if(civilSaved >= civilMaxCount)
             GameStateManager.Instance.SetGameState(GameState.WIN);
     }
 }

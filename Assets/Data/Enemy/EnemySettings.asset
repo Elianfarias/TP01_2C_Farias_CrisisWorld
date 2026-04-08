@@ -13,18 +13,17 @@ MonoBehaviour:
   m_Name: EnemySettings
   m_EditorClassIdentifier: Assembly-CSharp::EnemySettingsSO
   damage: 20
-  waitTime: 2
   obstacleDetectionRadius: 10
   playerDetectionRadius: 100
   wanderRadius: 500
   wanderCooldown: 2
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 2048
   playerLayer:
     serializedVersion: 2
     m_Bits: 1024
   enemyLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
+  ropeLayer:
+    serializedVersion: 2
+    m_Bits: 65536
   attackCooldown: 1.5

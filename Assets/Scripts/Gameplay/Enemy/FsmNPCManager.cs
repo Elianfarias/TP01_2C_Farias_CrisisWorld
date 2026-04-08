@@ -7,8 +7,9 @@ using UnityEngine.AI;
 
 public class FsmNPCManager : MonoBehaviour
 {
+    public bool isCivil;
+
     [SerializeField] private EnemySettingsSO enemySettingsSO;
-    [SerializeField] private bool isCivil;
     [SerializeField] NavMeshAgent _agent;
     [SerializeField] Animator animator;
     [SerializeField] HealthSystem healthSystem;
