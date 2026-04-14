@@ -1,3 +1,5 @@
+https://elianity.itch.io/crisis-word
+
 # Crisis World
 
 **The city is under siege. Civilians are trapped. You're their only hope.**
